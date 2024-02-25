@@ -6,4 +6,4 @@
  */
 
 rootProject.name = 'basic-calculator'
-include('app', 'list', 'utilities')
+include('app', 'add')
