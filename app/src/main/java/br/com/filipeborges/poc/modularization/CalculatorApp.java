@@ -3,8 +3,53 @@
  */
 package br.com.filipeborges.poc.modularization;
 
+import br.com.filipebores.poc.modularization.add.api.Add;
+import br.com.filipebores.poc.modularization.input.api.Input;
+import br.com.filipebores.poc.modularization.input.api.Output;
+
+import java.util.ServiceLoader;
+
 public class CalculatorApp {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+    private final Input input;
+    private final Output output;
+    private final Add add;
+
+    private CalculatorApp() {
+        input = getInputInstance();
+        output = getOutputInstance();
+        add = getAddInstance();
     }
+
+    public static void main(String[] args) {
+        new CalculatorApp().run();
+    }
+
+    private void run() {
+        var numbers = input.printInfoAndReadNumbers();
+        var result = add.sum(numbers[0], numbers[1]);
+        output.printResult("sum", result);
+    }
+
+    private Input getInputInstance() {
+        return ServiceLoader
+                .load(Input.class)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Could not find any instance of " + Input.class.getName()));
+    }
+
+    private Add getAddInstance() {
+        return ServiceLoader
+                .load(Add.class)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Could not find any instance of " + Add.class.getName()));
+    }
+
+    private Output getOutputInstance() {
+        return ServiceLoader
+                .load(Output.class)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Could not find any instance of " + Output.class.getName()));
+    }
+
 }

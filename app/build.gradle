@@ -7,10 +7,13 @@ plugins {
 }
 
 dependencies {
+    implementation project(':input')
     implementation project(':add')
 }
 
 application {
     // Define the main class for the application.
     mainClass = 'br.com.filipeborges.poc.modularization.CalculatorApp'
+    // Define the main module for the application
+    mainModule = 'basic.calculator.main'
 }
