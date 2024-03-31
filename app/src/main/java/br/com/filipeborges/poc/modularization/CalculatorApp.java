@@ -26,6 +26,7 @@ public class CalculatorApp {
     }
 
     private void run() {
+        output.printSelectedOperation("SUM");
         var numbers = input.printInfoAndReadNumbers();
         var result = add.sum(numbers[0], numbers[1]);
         output.printResult("sum", result);

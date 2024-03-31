@@ -9,4 +9,9 @@ public class OutputImplementation implements Output {
     public void printResult(String operation, double result) {
         System.out.printf(RESULT_MESSAGE_FORMAT, operation, result);
     }
+
+    @Override
+    public void printSelectedOperation(String operation) {
+        System.out.printf("----==== Current operation: %s ====----\n", operation);
+    }
 }
