@@ -5,6 +5,8 @@
 plugins {
     // Apply the java Plugin to add support for Java.
     id 'java'
+    // Plugin to transform not modular JARs into automatic modules (to allow other modules to see them) - https://github.com/gradlex-org/extra-java-module-info
+    id 'org.gradlex.extra-java-module-info'
 }
 
 repositories {
@@ -17,6 +19,15 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+/*
+Will create an automatic module with name based on JAR file - it will transform the JAR manifest
+to add the property 'Automatic-Module-Name' based on the jar name.
+Gradle currently put a not modular JAR on the module path only if it has the 'Automatic-Module-Name' on the JAR manifest.
+ */
+extraJavaModuleInfo {
+    deriveAutomaticModuleNamesFromFileNames.set(true)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

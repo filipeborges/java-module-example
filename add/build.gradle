@@ -7,4 +7,6 @@ plugins {
 }
 
 dependencies {
+    // Legacy JAR (not modular)
+    implementation 'org.apache.commons:commons-math:2.2'
 }
